@@ -20,6 +20,7 @@ buttonNew.addEventListener('click', () => {
 
 buttonRoll.addEventListener('click', () => {
   let randomNumber = Math.floor(Math.random() * 6) + 1;
+  dice.classList.remove('hidden');
   dice.src = `dice-${randomNumber}.png`;
   if (randomNumber === 1) {
     if (isActivePlayer(sectionPl1)) scorePl1.textContent = 0;
@@ -76,6 +77,7 @@ function switchActivePlayerClass(addClass, removeClass) {
 
 function startNewGame() {
   resetAllScores(scorePl1, scorePl2, currentScorePl1, currentScorePl2);
+  dice.classList.add('hidden');
   switchActivePlayer(true);
 }
 function resetAllScores(...args) {
