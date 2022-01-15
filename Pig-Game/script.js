@@ -63,6 +63,11 @@ function winTheGame(currentScore) {
   if (+currentScore >= 100) {
     buttonHold.disabled = true;
     buttonRoll.disabled = true;
+    if (isActivePlayer(sectionPl1)) {
+      sectionPl1.classList.add('player--winner');
+    } else {
+      sectionPl2.classList.add('player--winner');
+    }
   }
 }
 
@@ -77,6 +82,8 @@ function switchActivePlayerClass(addClass, removeClass) {
 
 function startNewGame() {
   resetAllScores(scorePl1, scorePl2, currentScorePl1, currentScorePl2);
+  sectionPl1.classList.remove('player--winner');
+  sectionPl2.classList.remove('player--winner');
   dice.classList.add('hidden');
   switchActivePlayer(true);
 }
