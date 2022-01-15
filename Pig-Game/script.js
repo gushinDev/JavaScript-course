@@ -13,7 +13,7 @@ let currentScorePl1 = document.querySelector('#current--0');
 let currentScorePl2 = document.querySelector('#current--1');
 
 startNewGame();
-/* sectionPl1.classList.remove('player--active') */
+
 buttonNew.addEventListener('click', () => {
   startNewGame();
 });
@@ -22,11 +22,9 @@ buttonRoll.addEventListener('click', () => {
   let randomNumber = Math.floor(Math.random() * 6) + 1;
   dice.src = `dice-${randomNumber}.png`;
   if (randomNumber === 1) {
-    if (isActivePlayer(sectionPl1)) {
-      scorePl1.textContent = 0;
-    } else {
-      scorePl2.textContent = 0;
-    }
+    if (isActivePlayer(sectionPl1)) scorePl1.textContent = 0;
+    else scorePl2.textContent = 0;
+
     switchActivePlayer();
     return;
   }
@@ -39,18 +37,18 @@ buttonRoll.addEventListener('click', () => {
 
 buttonHold.addEventListener('click', () => {
   if (isActivePlayer(sectionPl1)) {
-    currentScorePl1.textContent =
-      +currentScorePl1.textContent + +scorePl1.textContent;
-    scorePl1.textContent = 0;
-    winTheGame(currentScorePl1.textContent);
+    increasePlayerScore(scorePl1, currentScorePl1);
   } else {
-    currentScorePl2.textContent =
-      +currentScorePl2.textContent + +scorePl2.textContent;
-    scorePl2.textContent = 0;
-    winTheGame(currentScorePl2.textContent);
+    increasePlayerScore(scorePl2, currentScorePl2);
   }
   switchActivePlayer();
 });
+
+function increasePlayerScore(score, currentScore) {
+  currentScore.textContent = +currentScore.textContent + +score.textContent;
+  score.textContent = 0;
+  winTheGame(currentScore.textContent);
+}
 
 function switchActivePlayer(newGame = false) {
   if (isActivePlayer(sectionPl2) || newGame) {
@@ -68,7 +66,7 @@ function winTheGame(currentScore) {
 }
 
 function isActivePlayer(playerSection) {
-  return playerSection.classList.contains('player--active')
+  return playerSection.classList.contains('player--active');
 }
 
 function switchActivePlayerClass(addClass, removeClass) {
